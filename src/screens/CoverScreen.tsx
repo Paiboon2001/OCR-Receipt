@@ -109,7 +109,7 @@ export default function CoverScreen({ navigation }: Props) {
             />
             {/* Soft overlay so cards pop while the preview stays visible */}
             <LinearGradient
-              colors={['rgba(249,249,252,0.35)', 'rgba(249,249,252,0)', 'rgba(249,249,252,0.45)']}
+              colors={['rgba(249,249,252,0.35)', 'rgba(249,249,252,0)', 'rgba(249,249,252,0.1)']}
               locations={[0, 0.5, 1]}
               style={StyleSheet.absoluteFill}
             />
@@ -255,14 +255,12 @@ const styles = StyleSheet.create({
   },
   preview: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
+    // Anchor to the bottom and oversize slightly so the image fills all the way
+    // down (cropping the top / grainy border) with no gap at the bottom edge.
     bottom: 0,
-    width: '100%',
-    height: '100%',
-    // Light zoom to crop Frame.png's grainy gray border so it sits flush in the card.
-    transform: [{ scale: 1.18 }],
+    left: '-9%',
+    width: '118%',
+    height: '118%',
   },
   scanLineWrap: {
     position: 'absolute',
