@@ -81,7 +81,7 @@ export default function CoverScreen({ navigation }: Props) {
     return () => loop.stop();
   }, [scan]);
 
-  const openScanner = () => navigation.navigate('ScanDocs');
+  const openQrLogin = () => navigation.navigate('QrLogin');
 
   return (
     <LinearGradient
@@ -171,7 +171,7 @@ export default function CoverScreen({ navigation }: Props) {
         {/* Capture controls */}
         <View style={styles.controls}>
           <Pressable
-            onPress={openScanner}
+            onPress={openQrLogin}
             style={({ pressed }) => [styles.captureBtn, pressed && { opacity: 0.9 }]}>
             <LinearGradient
               colors={['#6c6e74', '#000000']}
@@ -185,11 +185,10 @@ export default function CoverScreen({ navigation }: Props) {
             </LinearGradient>
           </Pressable>
 
-          <Pressable
-            onPress={() => navigation.navigate('QrLogin')}
-            style={styles.loginPill}>
+          {/* Caption describing what the button above does (not interactive) */}
+          <View style={styles.loginPill}>
             <Text style={styles.loginText}>Scan QR to Login</Text>
-          </Pressable>
+          </View>
         </View>
       </View>
     </LinearGradient>
