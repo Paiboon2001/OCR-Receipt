@@ -10,6 +10,9 @@ your spending.
   floating extracted-data cards and a capture button.
 - **Scan QR to Login** — modal scanner overlay (from Figma) with animated scan
   line; tapping it enters the app.
+- **Scan Docs** — full-screen receipt/tax-invoice scanner (from Figma) with a
+  tall viewport, animated scan line and a retake / capture / gallery control
+  row; runs OCR and routes to the review screen.
 - **Scan / Capture** — take a photo or pick from the gallery; the image is sent
   to a cloud OCR service and parsed into structured fields.
 - **Receipts** — searchable, category-filterable list of all saved receipts.

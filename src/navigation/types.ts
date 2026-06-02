@@ -10,6 +10,7 @@ export type TabParamList = {
 export type RootStackParamList = {
   Cover: undefined;
   QrLogin: undefined;
+  ScanDocs: undefined;
   Tabs: NavigatorScreenParams<TabParamList>;
   ReceiptDetail: { receiptId?: string; draft?: OcrResult; imageUri?: string };
 };

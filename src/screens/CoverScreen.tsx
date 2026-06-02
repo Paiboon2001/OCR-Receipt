@@ -81,7 +81,7 @@ export default function CoverScreen({ navigation }: Props) {
     return () => loop.stop();
   }, [scan]);
 
-  const enterApp = () => navigation.replace('Tabs', { screen: 'Scan' });
+  const openScanner = () => navigation.navigate('ScanDocs');
 
   return (
     <LinearGradient
@@ -171,7 +171,7 @@ export default function CoverScreen({ navigation }: Props) {
         {/* Capture controls */}
         <View style={styles.controls}>
           <Pressable
-            onPress={enterApp}
+            onPress={openScanner}
             style={({ pressed }) => [styles.captureBtn, pressed && { opacity: 0.9 }]}>
             <LinearGradient
               colors={['#6c6e74', '#000000']}

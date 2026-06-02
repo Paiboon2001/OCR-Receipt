@@ -10,6 +10,7 @@ import { Icon, IconName } from '../components/Icon';
 
 import CoverScreen from '../screens/CoverScreen';
 import QrLoginScreen from '../screens/QrLoginScreen';
+import ScanDocsScreen from '../screens/ScanDocsScreen';
 import ScanScreen from '../screens/ScanScreen';
 import ReceiptListScreen from '../screens/ReceiptListScreen';
 import SummaryScreen from '../screens/SummaryScreen';
@@ -105,6 +106,11 @@ export default function RootNavigator() {
             presentation: 'transparentModal',
             animation: 'fade',
           }}
+        />
+        <Stack.Screen
+          name="ScanDocs"
+          component={ScanDocsScreen}
+          options={{ headerShown: false, presentation: 'fullScreenModal' }}
         />
         <Stack.Screen
           name="Tabs"

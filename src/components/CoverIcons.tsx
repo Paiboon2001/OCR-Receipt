@@ -1,5 +1,23 @@
 import React from 'react';
-import { SvgXml } from 'react-native-svg';
+import Svg, { Path, SvgXml } from 'react-native-svg';
+
+export const CloseIcon = ({
+  size = 24,
+  color = '#ffffff',
+}: {
+  size?: number;
+  color?: string;
+}) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M18 6L6 18M6 6l12 12"
+      stroke={color}
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
 
 /**
  * Icons exported from the Figma "Page Cover" design (node 16:2).
@@ -46,6 +64,44 @@ const moneyXml = `
 </linearGradient>
 </defs>
 </svg>`;
+
+const refreshXml = (stroke: string) => `
+<svg viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 8C1 8 3.00498 5.26822 4.63384 3.63824C6.26269 2.00827 8.5136 1 11 1C15.9706 1 20 5.02944 20 10C20 14.9706 15.9706 19 11 19C6.89691 19 3.43511 16.2543 2.35177 12.5M7 8H1V2" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+
+const cameraXml = (stroke: string) => `
+<svg viewBox="0 0 28.6667 27.3333" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1.00001 9.50297C1.00001 9.03588 1.00001 8.80233 1.0195 8.60562C1.20748 6.70836 2.70837 5.20747 4.60562 5.0195C4.80233 5.00001 5.04849 5.00001 5.54079 5.00001C5.73048 5.00001 5.82533 5.00001 5.90586 4.99513C6.93416 4.93285 7.83461 4.28384 8.21887 3.328C8.24896 3.25315 8.27709 3.16877 8.33334 3.00001C8.3896 2.83124 8.41772 2.74686 8.44782 2.67201C8.83207 1.71617 9.73253 1.06716 10.7608 1.00488C10.8414 1.00001 10.9303 1.00001 11.1082 1.00001H17.5585C17.7364 1.00001 17.8253 1.00001 17.9059 1.00488C18.9342 1.06716 19.8346 1.71617 20.2189 2.67201C20.249 2.74686 20.2771 2.83124 20.3333 3.00001C20.3896 3.16877 20.4177 3.25315 20.4478 3.328C20.8321 4.28384 21.7325 4.93285 22.7608 4.99513C22.8414 5.00001 22.9362 5.00001 23.1259 5.00001C23.6182 5.00001 23.8643 5.00001 24.0611 5.0195C25.9583 5.20747 27.4592 6.70836 27.6472 8.60562C27.6667 8.80233 27.6667 9.03588 27.6667 9.50297V19.9333C27.6667 22.1735 27.6667 23.2937 27.2307 24.1493C26.8472 24.9019 26.2353 25.5139 25.4826 25.8974C24.627 26.3333 23.5069 26.3333 21.2667 26.3333H7.40001C5.1598 26.3333 4.03969 26.3333 3.18405 25.8974C2.4314 25.5139 1.81948 24.9019 1.43598 24.1493C1.00001 23.2937 1.00001 22.1735 1.00001 19.9333V9.50297Z" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14.3333 20.3333C17.2789 20.3333 19.6667 17.9455 19.6667 15C19.6667 12.0545 17.2789 9.66667 14.3333 9.66667C11.3878 9.66667 9.00001 12.0545 9.00001 15C9.00001 17.9455 11.3878 20.3333 14.3333 20.3333Z" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+
+const galleryXml = (stroke: string) => `
+<svg viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M3.27209 18.7279L9.86863 12.1314C10.2646 11.7354 10.4627 11.5373 10.691 11.4632C10.8918 11.3979 11.1082 11.3979 11.309 11.4632C11.5373 11.5373 11.7354 11.7354 12.1314 12.1314L18.6839 18.6839M13 13L15.8686 10.1314C16.2646 9.73535 16.4627 9.53735 16.691 9.46316C16.8918 9.3979 17.1082 9.3979 17.309 9.46316C17.5373 9.53735 17.7354 9.73535 18.1314 10.1314L21 13M9 7C9 8.10457 8.10457 9 7 9C5.89543 9 5 8.10457 5 7C5 5.89543 5.89543 5 7 5C8.10457 5 9 5.89543 9 7ZM5.8 19H16.2C17.8802 19 18.7202 19 19.362 18.673C19.9265 18.3854 20.3854 17.9265 20.673 17.362C21 16.7202 21 15.8802 21 14.2V5.8C21 4.11984 21 3.27976 20.673 2.63803C20.3854 2.07354 19.9265 1.6146 19.362 1.32698C18.7202 1 17.8802 1 16.2 1H5.8C4.11984 1 3.27976 1 2.63803 1.32698C2.07354 1.6146 1.6146 2.07354 1.32698 2.63803C1 3.27976 1 4.11984 1 5.8V14.2C1 15.8802 1 16.7202 1.32698 17.362C1.6146 17.9265 2.07354 18.3854 2.63803 18.673C3.27976 19 4.11984 19 5.8 19Z" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+
+export const RefreshIcon = ({
+  size = 24,
+  color = '#414755',
+}: {
+  size?: number;
+  color?: string;
+}) => <SvgXml xml={refreshXml(color)} width={size} height={size * (20 / 21)} />;
+export const CameraIcon = ({
+  size = 32,
+  color = 'white',
+}: {
+  size?: number;
+  color?: string;
+}) => <SvgXml xml={cameraXml(color)} width={size} height={size * (27.3333 / 28.6667)} />;
+export const GalleryIcon = ({
+  size = 24,
+  color = '#414755',
+}: {
+  size?: number;
+  color?: string;
+}) => <SvgXml xml={galleryXml(color)} width={size} height={size * (20 / 22)} />;
 
 export const MaximizeIcon = ({
   size = 40,
