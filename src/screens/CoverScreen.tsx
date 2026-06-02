@@ -10,12 +10,20 @@ import {
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import Svg, {
+  Defs,
+  LinearGradient as SvgLinearGradient,
+  Stop,
+  Text as SvgText,
+} from 'react-native-svg';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { RootStackParamList } from '../navigation/types';
 import {
   FileIcon,
   InvoiceIcon,
+  LogoutIcon,
   MaximizeIcon,
   MoneyIcon,
   QrCodeIcon,
@@ -57,6 +65,7 @@ function InfoCard({
 }
 
 export default function CoverScreen({ navigation }: Props) {
+  const insets = useSafeAreaInsets();
   // Animated scanning line that sweeps top → bottom of the frame.
   const scan = useRef(new Animated.Value(0)).current;
 
@@ -84,16 +93,50 @@ export default function CoverScreen({ navigation }: Props) {
   // Kept for reference / future use — capture button used to open this.
   const openQrLogin = () => navigation.navigate('QrLogin');
   const openScanner = () => navigation.navigate('ScanDocs');
+  const logout = () => navigation.replace('Login');
 
   return (
     <LinearGradient
       colors={['#ffffff', '#d0eeff']}
       locations={[0, 1]}
       style={styles.root}>
+      {/* Top bar: greeting + company + logout */}
+      <View style={[styles.topBar, { paddingTop: insets.top + 16 }]}>
+        <View style={styles.topBarLeft}>
+          <Text style={styles.greeting}>สวัสดีคุณ,</Text>
+          <Text style={styles.company} numberOfLines={1}>
+            บริษัท BMSทดสอบ จำกัด
+          </Text>
+        </View>
+        <Pressable
+          onPress={logout}
+          hitSlop={8}
+          style={({ pressed }) => [styles.logoutBtn, pressed && { opacity: 0.6 }]}>
+          <LogoutIcon size={16} color="#1a1c1e" />
+        </Pressable>
+      </View>
+
       <View style={styles.content}>
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.title}>OCR Receipt</Text>
+          <Svg height={48} width={300}>
+            <Defs>
+              <SvgLinearGradient id="titleGrad" x1="0" y1="0" x2="1" y2="0">
+                <Stop offset="0" stopColor="#0080ff" />
+                <Stop offset="1" stopColor="#9000ff" />
+              </SvgLinearGradient>
+            </Defs>
+            <SvgText
+              fill="url(#titleGrad)"
+              x={150}
+              y={37}
+              fontSize={36}
+              fontWeight="bold"
+              fontFamily={SERIF}
+              textAnchor="middle">
+              OCR Receipt
+            </SvgText>
+          </Svg>
           <Text style={styles.subtitle}>
             Automatically extract billing information
           </Text>
@@ -189,7 +232,7 @@ export default function CoverScreen({ navigation }: Props) {
 
           {/* Caption describing what the button above does (not interactive) */}
           <View style={styles.loginPill}>
-            <Text style={styles.loginText}>Scan QR to Login</Text>
+            <Text style={styles.loginText}>สแกนใบเสร็จ/ใบกำกับภาษี</Text>
           </View>
         </View>
       </View>
@@ -202,26 +245,36 @@ const FRAME_TRAVEL = 460;
 
 const styles = StyleSheet.create({
   root: { flex: 1 },
+  topBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e3efff',
+    paddingHorizontal: 16,
+    paddingBottom: 8,
+  },
+  topBarLeft: { flex: 1, justifyContent: 'center' },
+  greeting: { fontSize: 12, color: '#777777', lineHeight: 18 },
+  company: { fontSize: 18, fontWeight: '600', color: '#000000', lineHeight: 26 },
+  logoutBtn: {
+    width: 34,
+    height: 34,
+    borderRadius: 9999,
+    backgroundColor: '#ffffff',
+    borderWidth: 1,
+    borderColor: '#9fcbff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   content: {
     flex: 1,
-    paddingTop: 88,
+    paddingTop: 24,
     paddingBottom: 40,
     paddingHorizontal: 24,
     justifyContent: 'space-between',
   },
-  header: { alignItems: 'center', paddingBottom: 40 },
-  title: {
-    fontFamily: SERIF,
-    fontSize: 36,
-    fontWeight: '700',
-    color: '#1a1c1e',
-    letterSpacing: -0.72,
-    lineHeight: 44,
-    textAlign: 'center',
-    textShadowColor: 'rgba(0,0,0,0.05)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 0.5,
-  },
+  header: { alignItems: 'center', paddingBottom: 24 },
   subtitle: {
     fontSize: 16,
     color: '#777777',
