@@ -253,7 +253,17 @@ const styles = StyleSheet.create({
     shadowRadius: 40,
     elevation: 4,
   },
-  preview: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%' },
+  preview: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: '100%',
+    height: '100%',
+    // Light zoom to crop Frame.png's grainy gray border so it sits flush in the card.
+    transform: [{ scale: 1.18 }],
+  },
   scanLineWrap: {
     position: 'absolute',
     left: -1,
