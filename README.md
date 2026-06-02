@@ -76,9 +76,14 @@ npm run ios
 npm run android
 ```
 
-> ⚠️ The project folder name contains a space (`OCR Receipt`). Spaces in the path
-> can break iOS CocoaPods/Xcode builds. If `pod install` or the iOS build fails,
-> move the project to a space-free path (e.g. `~/OCRReceipt`).
+> ⚠️ The project folder name contains a space (`OCR Receipt`). RN 0.85 normally
+> downloads prebuilt React Native Core/Dependencies tarballs, and that downloader
+> rejects paths with a space. The Podfile therefore forces
+> `RCT_USE_PREBUILT_RNCORE=0` / `RCT_USE_RN_DEP=0` so Core builds **from source**
+> (slower first install, but it works in place). If you move the project to a
+> space-free path you can set those back to `1` for faster installs.
+>
+> Verified running on the iOS Simulator (iPhone 16 Pro).
 
 ## Roadmap
 

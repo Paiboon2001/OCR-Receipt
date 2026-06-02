@@ -1,3 +1,11 @@
+# Build React Native Core + Dependencies from source instead of downloading the
+# prebuilt Maven tarballs. The tarball downloader rejects paths containing a
+# space (this project lives in ".../OCR Receipt"), so prebuilt artifacts fail to
+# install. Building from source avoids that. Set these to '1' if the project is
+# moved to a space-free path and you want faster installs.
+ENV['RCT_USE_PREBUILT_RNCORE'] ||= '0'
+ENV['RCT_USE_RN_DEP'] ||= '0'
+
 # Resolve react_native_pods.rb with node to allow for hoisting
 require Pod::Executable.execute_command('node', ['-p',
   'require.resolve(
