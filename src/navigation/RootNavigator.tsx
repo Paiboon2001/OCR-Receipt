@@ -8,6 +8,7 @@ import { RootStackParamList, TabParamList } from './types';
 import { colors, typography } from '../theme/theme';
 import { Icon, IconName } from '../components/Icon';
 
+import LoginScreen from '../screens/LoginScreen';
 import CoverScreen from '../screens/CoverScreen';
 import QrLoginScreen from '../screens/QrLoginScreen';
 import ScanDocsScreen from '../screens/ScanDocsScreen';
@@ -92,7 +93,12 @@ function Tabs() {
 export default function RootNavigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Cover">
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="Cover"
           component={CoverScreen}

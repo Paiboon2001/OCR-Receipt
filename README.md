@@ -6,6 +6,9 @@ your spending.
 
 ## Features
 
+- **Login** — first screen (from Figma): QR-branded login with username /
+  password, a "remember me" checkbox and a secure-connection note. Logging in
+  goes to the Cover screen.
 - **Cover** — branded entry screen (from Figma) with an animated scanning frame,
   floating extracted-data cards and a capture button.
 - **Scan QR to Login** — modal scanner overlay (from Figma) with a live camera

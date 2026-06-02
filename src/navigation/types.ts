@@ -8,6 +8,7 @@ export type TabParamList = {
 };
 
 export type RootStackParamList = {
+  Login: undefined;
   Cover: undefined;
   QrLogin: undefined;
   ScanDocs: undefined;
