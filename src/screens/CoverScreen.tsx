@@ -255,12 +255,13 @@ const styles = StyleSheet.create({
   },
   preview: {
     position: 'absolute',
-    // Anchor to the bottom and oversize slightly so the image fills all the way
-    // down (cropping the top / grainy border) with no gap at the bottom edge.
-    bottom: 0,
-    left: '-9%',
-    width: '118%',
-    height: '118%',
+    // Oversize and shift up so the bill content fills the whole card: the top
+    // grey border and the white lower half of the phone mockup are cropped off,
+    // leaving no white showing inside the frame.
+    top: '-8%',
+    left: '-10%',
+    width: '120%',
+    height: '150%',
   },
   scanLineWrap: {
     position: 'absolute',
