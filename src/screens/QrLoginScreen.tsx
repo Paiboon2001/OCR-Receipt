@@ -162,12 +162,15 @@ export default function QrLoginScreen({ navigation }: Props) {
 
       {/* Bottom sheet */}
       <View style={styles.sheet}>
-        <View style={styles.scanIconStack}>
+        <Pressable
+          onPress={() => navigation.navigate('ScanDocs')}
+          hitSlop={12}
+          style={({ pressed }) => [styles.scanIconStack, pressed && { opacity: 0.6 }]}>
           <MaximizeIcon size={40} color="#0058bc" />
           <View style={styles.qrOverlay}>
             <QrCodeIcon size={24} color="#0058bc" />
           </View>
-        </View>
+        </Pressable>
         <Text style={styles.title}>Scan QR to Login</Text>
         <Text style={styles.subtitle}>Securely login by scanning your QR code</Text>
       </View>
