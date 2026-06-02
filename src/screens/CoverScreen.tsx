@@ -103,13 +103,13 @@ export default function CoverScreen({ navigation }: Props) {
             style={styles.frame}
             onLayout={() => {}}>
             <Image
-              source={require('../assets/scan_doc.jpg')}
+              source={require('../assets/Frame.png')}
               style={styles.preview}
               resizeMode="cover"
             />
-            {/* Soft overlay so cards pop while the receipt stays visible */}
+            {/* Soft overlay so cards pop while the preview stays visible */}
             <LinearGradient
-              colors={['rgba(249,249,252,0.45)', 'rgba(249,249,252,0.15)', 'rgba(249,249,252,0.55)']}
+              colors={['rgba(249,249,252,0.35)', 'rgba(249,249,252,0)', 'rgba(249,249,252,0.45)']}
               locations={[0, 0.5, 1]}
               style={StyleSheet.absoluteFill}
             />
