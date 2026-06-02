@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    paddingBottom: 32,
+    paddingVertical: 32,
   },
   viewportContainer: {
     flex: 1,
