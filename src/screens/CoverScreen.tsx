@@ -105,7 +105,7 @@ export default function CoverScreen({ navigation }: Props) {
             <Image
               source={require('../assets/Frame.png')}
               style={styles.preview}
-              resizeMode="cover"
+              resizeMode="stretch"
             />
             {/* Soft overlay so cards pop while the preview stays visible */}
             <LinearGradient
@@ -254,14 +254,14 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   preview: {
+    // Stretch the image to fill the card exactly (resizeMode="stretch").
     position: 'absolute',
-    // Oversize and shift up so the bill content fills the whole card: the top
-    // grey border and the white lower half of the phone mockup are cropped off,
-    // leaving no white showing inside the frame.
-    top: '-8%',
-    left: '-10%',
-    width: '120%',
-    height: '150%',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: '100%',
+    height: '100%',
   },
   scanLineWrap: {
     position: 'absolute',
