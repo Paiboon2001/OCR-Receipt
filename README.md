@@ -6,6 +6,10 @@ your spending.
 
 ## Features
 
+- **Cover** — branded entry screen (from Figma) with an animated scanning frame,
+  floating extracted-data cards and a capture button.
+- **Scan QR to Login** — modal scanner overlay (from Figma) with animated scan
+  line; tapping it enters the app.
 - **Scan / Capture** — take a photo or pick from the gallery; the image is sent
   to a cloud OCR service and parsed into structured fields.
 - **Receipts** — searchable, category-filterable list of all saved receipts.
@@ -26,6 +30,8 @@ first launch.
 | OCR         | Cloud HTTP API (provider-agnostic, see below)     |
 | Image input | `react-native-image-picker` (camera + gallery)    |
 | Storage     | `@react-native-async-storage/async-storage`       |
+| Gradients   | `react-native-linear-gradient`                    |
+| Vector art  | `react-native-svg` (Figma-exported icons)         |
 
 ## Project structure
 

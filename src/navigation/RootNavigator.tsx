@@ -8,6 +8,8 @@ import { RootStackParamList, TabParamList } from './types';
 import { colors, typography } from '../theme/theme';
 import { Icon, IconName } from '../components/Icon';
 
+import CoverScreen from '../screens/CoverScreen';
+import QrLoginScreen from '../screens/QrLoginScreen';
 import ScanScreen from '../screens/ScanScreen';
 import ReceiptListScreen from '../screens/ReceiptListScreen';
 import SummaryScreen from '../screens/SummaryScreen';
@@ -89,7 +91,21 @@ function Tabs() {
 export default function RootNavigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Cover">
+        <Stack.Screen
+          name="Cover"
+          component={CoverScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="QrLogin"
+          component={QrLoginScreen}
+          options={{
+            headerShown: false,
+            presentation: 'transparentModal',
+            animation: 'fade',
+          }}
+        />
         <Stack.Screen
           name="Tabs"
           component={Tabs}
