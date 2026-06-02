@@ -3,7 +3,6 @@ import {
   Alert,
   Animated,
   Easing,
-  Image,
   Pressable,
   StyleSheet,
   Text,
@@ -131,12 +130,6 @@ export default function ScanDocsScreen({ navigation }: Props) {
       <View style={styles.viewportArea}>
         <View style={styles.viewportContainer}>
           <View style={styles.cameraView}>
-            <Image
-              source={require('../assets/scan_doc.jpg')}
-              style={styles.docImage}
-              resizeMode="cover"
-            />
-
             {/* Corner markers */}
             <View style={[styles.corner, styles.cornerTL]} />
             <View style={[styles.corner, styles.cornerTR]} />
@@ -240,20 +233,17 @@ const styles = StyleSheet.create({
   viewportContainer: {
     flex: 1,
     width: 342,
-    paddingTop: 40,
-    paddingHorizontal: 8,
-    paddingBottom: 8,
+    padding: 8,
     borderRadius: 32,
     overflow: 'hidden',
   },
   cameraView: {
     flex: 1,
     width: '100%',
-    backgroundColor: '#eeeef0',
+    backgroundColor: 'transparent',
     borderRadius: 24,
     overflow: 'hidden',
   },
-  docImage: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%' },
   corner: {
     position: 'absolute',
     width: 48,
@@ -262,8 +252,8 @@ const styles = StyleSheet.create({
   },
   cornerTL: { top: 0, left: 0, borderTopWidth: 4, borderLeftWidth: 4, borderTopLeftRadius: 16 },
   cornerTR: { top: 0, right: 0, borderTopWidth: 4, borderRightWidth: 4, borderTopRightRadius: 16 },
-  cornerBL: { bottom: 31, left: 0, borderBottomWidth: 4, borderLeftWidth: 4, borderBottomLeftRadius: 16 },
-  cornerBR: { bottom: 31, right: 0, borderBottomWidth: 4, borderRightWidth: 4, borderBottomRightRadius: 16 },
+  cornerBL: { bottom: 0, left: 0, borderBottomWidth: 4, borderLeftWidth: 4, borderBottomLeftRadius: 16 },
+  cornerBR: { bottom: 0, right: 0, borderBottomWidth: 4, borderRightWidth: 4, borderBottomRightRadius: 16 },
   scanGroup: { position: 'absolute', left: 32, right: 32, top: 0 },
   scanTrail: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 96 },
   scanLine: {
