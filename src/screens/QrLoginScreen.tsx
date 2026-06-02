@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import {
   Animated,
   Easing,
@@ -10,6 +10,12 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Svg, { Path } from 'react-native-svg';
+import {
+  Camera,
+  useCameraDevice,
+  useCameraPermission,
+  useCodeScanner,
+} from 'react-native-vision-camera';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { RootStackParamList } from '../navigation/types';
@@ -39,6 +45,35 @@ function CloseIcon({ size = 24, color = '#ffffff' }: { size?: number; color?: st
 
 export default function QrLoginScreen({ navigation }: Props) {
   const scan = useRef(new Animated.Value(0)).current;
+  const navigatedRef = useRef(false);
+
+  // Camera setup
+  const { hasPermission, requestPermission } = useCameraPermission();
+  const device = useCameraDevice('back');
+
+  useEffect(() => {
+    if (!hasPermission) {
+      requestPermission();
+    }
+  }, [hasPermission, requestPermission]);
+
+  // Navigate forward exactly once (on a detected QR or the manual fallback).
+  const proceed = useCallback(() => {
+    if (navigatedRef.current) {
+      return;
+    }
+    navigatedRef.current = true;
+    navigation.replace('Tabs', { screen: 'Scan' });
+  }, [navigation]);
+
+  const codeScanner = useCodeScanner({
+    codeTypes: ['qr'],
+    onCodeScanned: codes => {
+      if (codes.length > 0) {
+        proceed();
+      }
+    },
+  });
 
   useEffect(() => {
     const loop = Animated.loop(
@@ -62,8 +97,7 @@ export default function QrLoginScreen({ navigation }: Props) {
   }, [scan]);
 
   const close = () => navigation.goBack();
-  // Simulate a successful QR login by entering the app.
-  const onScanned = () => navigation.replace('Tabs', { screen: 'Scan' });
+  const cameraReady = !!device && hasPermission;
 
   return (
     <View style={styles.root}>
@@ -72,10 +106,29 @@ export default function QrLoginScreen({ navigation }: Props) {
         <CloseIcon size={24} />
       </Pressable>
 
-      {/* Scanner viewport */}
+      {/* Scanner viewport — tap acts as the manual fallback (e.g. on a simulator
+          that has no camera, or before the QR is recognised). */}
       <View style={styles.viewportArea}>
-        <Pressable onPress={onScanned} style={styles.viewportContainer}>
+        <Pressable onPress={proceed} style={styles.viewportContainer}>
           <View style={styles.cameraView}>
+            {/* Live camera feed */}
+            {cameraReady ? (
+              <Camera
+                style={StyleSheet.absoluteFill}
+                device={device}
+                isActive={true}
+                codeScanner={codeScanner}
+              />
+            ) : (
+              <View style={styles.cameraFallback}>
+                <Text style={styles.fallbackText}>
+                  {hasPermission
+                    ? 'No camera available on this device.\nTap to continue.'
+                    : 'Camera permission needed.\nTap to continue.'}
+                </Text>
+              </View>
+            )}
+
             {/* Corner markers */}
             <View style={[styles.corner, styles.cornerTL]} />
             <View style={[styles.corner, styles.cornerTR]} />
@@ -130,8 +183,8 @@ const styles = StyleSheet.create({
   },
   close: {
     position: 'absolute',
-    top: 16,
-    right: 16,
+    top: 24,
+    right: 24,
     width: 32,
     height: 32,
     alignItems: 'center',
@@ -149,17 +202,29 @@ const styles = StyleSheet.create({
     width: 342,
     padding: 8,
     borderRadius: 32,
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.06,
-    shadowRadius: 20,
   },
   cameraView: {
     height: CAMERA_HEIGHT,
     width: '100%',
-    backgroundColor: '#eeeef0',
+    backgroundColor: 'transparent',
     borderRadius: 24,
     overflow: 'hidden',
+  },
+  cameraFallback: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255,0.06)',
+  },
+  fallbackText: {
+    color: 'rgba(255,255,255,0.75)',
+    fontSize: 13,
+    lineHeight: 18,
+    textAlign: 'center',
   },
   corner: {
     position: 'absolute',
@@ -171,19 +236,8 @@ const styles = StyleSheet.create({
   cornerTR: { top: 0, right: 0, borderTopWidth: 4, borderRightWidth: 4, borderTopRightRadius: 16 },
   cornerBL: { bottom: 0, left: 0, borderBottomWidth: 4, borderLeftWidth: 4, borderBottomLeftRadius: 16 },
   cornerBR: { bottom: 0, right: 0, borderBottomWidth: 4, borderRightWidth: 4, borderBottomRightRadius: 16 },
-  scanGroup: {
-    position: 'absolute',
-    left: 32,
-    right: 32,
-    top: 0,
-  },
-  scanTrail: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    height: 96,
-  },
+  scanGroup: { position: 'absolute', left: 32, right: 32, top: 0 },
+  scanTrail: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 96 },
   scanLine: {
     height: 4,
     borderRadius: 9999,

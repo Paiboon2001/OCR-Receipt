@@ -8,8 +8,10 @@ your spending.
 
 - **Cover** — branded entry screen (from Figma) with an animated scanning frame,
   floating extracted-data cards and a capture button.
-- **Scan QR to Login** — modal scanner overlay (from Figma) with animated scan
-  line; tapping it enters the app.
+- **Scan QR to Login** — modal scanner overlay (from Figma) with a live camera
+  feed (react-native-vision-camera) and animated scan line. Detecting a QR code
+  navigates into the app; on a simulator (no camera) tap the viewport to
+  continue. Requires running on a real device to see the live camera.
 - **Scan Docs** — full-screen receipt/tax-invoice scanner (from Figma) with a
   tall viewport, animated scan line and a retake / capture / gallery control
   row; runs OCR and routes to the review screen.
@@ -32,6 +34,7 @@ first launch.
 | Navigation  | React Navigation (bottom tabs + native stack)     |
 | OCR         | Cloud HTTP API (provider-agnostic, see below)     |
 | Image input | `react-native-image-picker` (camera + gallery)    |
+| Live camera | `react-native-vision-camera` (QR scan on QR Login) |
 | Storage     | `@react-native-async-storage/async-storage`       |
 | Gradients   | `react-native-linear-gradient`                    |
 | Vector art  | `react-native-svg` (Figma-exported icons)         |
